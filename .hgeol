@@ -1,0 +1,11 @@
+[patterns]
+**.sln  = BIN
+**.bat  = CRLF
+
+# All other files (which presumably are human-editable) are "native".
+# This must be the last rule!
+
+** = native
+
+[repository]
+native = LF
