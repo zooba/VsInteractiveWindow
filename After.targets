@@ -55,6 +55,7 @@ using System.Runtime.InteropServices%3b
 </AssemblyVersionFile>
     </PropertyGroup>
 
+    <MakeDir Directories="$(IntermediateOutputPath)" />
     <WriteLinesToFile File="$(IntermediateOutputPath)\AssemblyVersionInfo.cs" Overwrite="true" Lines="$(AssemblyVersionFile)" />
 
     <ItemGroup>
