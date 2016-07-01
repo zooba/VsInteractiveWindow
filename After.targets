@@ -1,6 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
+  <ItemGroup>
+    <FilesToSign Include="$(TargetPath)" />
+  </ItemGroup>
+
   <ItemDefinitionGroup>
     <Reference>
       <Private>false</Private>
