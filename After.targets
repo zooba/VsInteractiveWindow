@@ -36,6 +36,21 @@
 
   <Target Name="GetBuildVersion" Returns="$(BuildVersion)" />
 
+  <PropertyGroup>
+    <ResolveAssemblyReferencesDependsOn>$(ResolveAssemblyReferencesDependsOn);_AddAssemblySearchPaths</ResolveAssemblyReferencesDependsOn>
+  </PropertyGroup>
+  <Target Name="_AddAssemblySearchPaths">
+    <PropertyGroup>
+      <AssemblySearchPaths>
+        $(AssemblySearchPaths);
+        $(DevEnvDir);
+        $(DevEnvDir)CommonExtensions\Microsoft\Editor;
+        $(DevEnvDir)PrivateAssemblies;
+        $(DevEnvDir)PublicAssemblies;
+      </AssemblySearchPaths>
+    </PropertyGroup>
+  </Target>
+
   <Import Project="$(MSBuildThisFileDirectory)\packages\*\build\*.targets" />
   <Import Project="$(VSSDKInstall)\Microsoft.VsSDK.targets" Condition="$(ImportVSSDKTargets) == 'true'" />
 </Project>

@@ -5,6 +5,8 @@
     <VisualStudioReferenceAssemblyVersion>$(VisualStudioVersion).0.0</VisualStudioReferenceAssemblyVersion>
     <BuildVersion Condition="$(BuildVersion) == ''">1.0.0.0</BuildVersion>
     <PackagesPath>$(MSBuildThisFileDirectory)\packages</PackagesPath>
+    <DevEnvDir Condition="$(VsInstallRoot) != ''">$(VsInstallRoot)\Common7\IDE\</DevEnvDir>
+    <DevEnvDir Condition="!Exists($(DevEnvDir))">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\$(VisualStudioVersion)', 'InstallDir', null, RegistryView.Registry32))\</DevEnvDir>
   </PropertyGroup>
 
   <PropertyGroup>
