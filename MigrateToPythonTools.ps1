@@ -82,7 +82,7 @@ $proj = [xml](gc $root\Editor\InteractiveWindow.csproj)
 
 foreach ($e in $proj.Project.PropertyGroup) {
     if ($e.RootNamespace) {
-        $e.RootNamespace = "Microsoft.PythonTools";
+        $e.RootNamespace = "Microsoft.PythonTools.InteractiveWindow";
     }
     if ($e.AssemblyName) {
         $e.AssemblyName = "Microsoft.PythonTools.InteractiveWindow";
