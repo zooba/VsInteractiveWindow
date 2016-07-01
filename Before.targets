@@ -1,2 +1,17 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputPath Condition="$(OutputPath) == ''">$(MSBuildThisFileDirectory)\bin\$(Platform)</OutputPath>
+    <IntermediateOutputPath Condition="$(OutputPath) == ''">$(MSBuildThisFileDirectory)\obj\$(Configuration)_$(Platform)</IntermediateOutputPath>
+    <VisualStudioReferenceAssemblyVersion>$(VisualStudioVersion).0.0</VisualStudioReferenceAssemblyVersion>
+    <BuildVersion Condition="$(BuildVersion) == ''">1.0.0.0</BuildVersion>
+    <PackagesPath>$(MSBuildThisFileDirectory)\packages</PackagesPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SignAssembly Condition="$(SignAssembly) == ''">true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\FinalPublicKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
+
+  <Import Project="$(PackagesPath)\*\build\*.props" />
 </Project>

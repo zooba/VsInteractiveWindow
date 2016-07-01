@@ -1,5 +1,5 @@
 $root = $MyInvocation.MyCommand.Definition | Split-Path -Parent;
-$enc = New-Object System.Text.UTF8Encoding($False);
+$enc = New-Object System.Text.UTF8Encoding($True);
 
 $vsct = [xml](gc $root\VisualStudio\InteractiveWindow.vsct)
 $ct = $vsct.CommandTable;
@@ -113,7 +113,20 @@ $proj.Save("$root\Editor\InteractiveWindow.csproj")
 "Update namespaces in source files"
 gci "$root\VisualStudio\*.cs", "$root\Editor\*.cs" -r | %{
     [System.IO.File]::WriteAllLines($_, ((gc $_) | 
+        %{ $_ -replace 'namespace Microsoft\.VisualStudio', 'using Microsoft.VisualStudio;
+namespace Microsoft.PythonTools' } |
         %{ $_ -replace 'Microsoft\.VisualStudio\.InteractiveWindow', 'Microsoft.PythonTools.InteractiveWindow' } |
-        %{ $_ -replace 'Microsoft\.VisualStudio\.VsInteractiveWindow', 'Microsoft.PythonTools.VsInteractiveWindow' }
+        %{ $_ -replace 'Microsoft\.VisualStudio\.VsInteractiveWindow', 'Microsoft.PythonTools.VsInteractiveWindow' } |
+        %{ $_ -replace '\(int\)OLE\.', '(int)Microsoft.VisualStudio.OLE.' }
     ), $enc);
 }
+
+"Download VSSDK tools (if needed)"
+if (-not (Test-Path "$root\packages\Microsoft.VSSDK.BuildTools*\build\Microsoft.VSSDK.BuildTools.props")) {
+    Invoke-WebRequest https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile "$root\nuget.exe"
+    & "$root\nuget.exe" install Microsoft.VSSDK.BuildTools -OutputDirectory "$root\packages"
+    & "$root\nuget.exe" install MicroBuild.Core -OutputDirectory "$root\packages"
+    del "$root\nuget.exe"
+}
+
+"Finished! Ready to build"
