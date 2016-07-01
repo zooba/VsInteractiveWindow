@@ -43,6 +43,26 @@
 
   <Target Name="GetBuildVersion" Returns="$(BuildVersion)" />
 
+  <Target Name="_GenerateAssemblyVersion" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <FileVersion Condition="$(FileVersion) == ''">$(BuildVersion)</FileVersion>
+      <AssemblyVersionFile>using System.Reflection%3b
+using System.Runtime.CompilerServices%3b
+using System.Runtime.InteropServices%3b
+
+[assembly: AssemblyVersion("$(BuildVersion)")]
+[assembly: AssemblyFileVersion("$(FileVersion)")]
+</AssemblyVersionFile>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="$(IntermediateOutputPath)\AssemblyVersionInfo.cs" Overwrite="true" Lines="$(AssemblyVersionFile)" />
+
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)\AssemblyVersionInfo.cs" />
+      <FileWrites Include="$(IntermediateOutputPath)\AssemblyVersionInfo.cs" />
+    </ItemGroup>
+  </Target>
+
   <PropertyGroup>
     <ResolveAssemblyReferencesDependsOn>$(ResolveAssemblyReferencesDependsOn);_AddAssemblySearchPaths</ResolveAssemblyReferencesDependsOn>
   </PropertyGroup>
