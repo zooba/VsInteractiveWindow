@@ -121,6 +121,16 @@ namespace Microsoft.PythonTools' } |
     ), $enc);
 }
 
+[System.IO.File]::WriteAllLines("$root\Editor\SmartUpDownOption.cs", ((gc "$root\Editor\SmartUpDownOption.cs") |
+    %{ $_ -replace 'OptionName = ".+";', 'OptionName = "PythonInteractiveSmartUpDown";' }
+), $enc);
+[System.IO.File]::WriteAllLines("$root\Editor\PredefinedInteractiveContentTypes.cs", ((gc "$root\Editor\PredefinedInteractiveContentTypes.cs") |
+    %{ $_ -replace '(\w+) = "(Interactive .+)";', '$1 = "Python $2";' }
+), $enc);
+[System.IO.File]::WriteAllLines("$root\Editor\Output\OutputClassifierProvider.cs", ((gc "$root\Editor\Output\OutputClassifierProvider.cs") |
+    %{ $_ -replace 'Name = "(Interactive .+)";', 'Name = "Python $1";' }
+), $enc);
+
 "Download VSSDK tools (if needed)"
 if (-not (Test-Path "$root\packages\Microsoft.VSSDK.BuildTools*\build\Microsoft.VSSDK.BuildTools.props")) {
     Invoke-WebRequest https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile "$root\nuget.exe"
