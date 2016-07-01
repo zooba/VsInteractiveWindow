@@ -2,7 +2,10 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
   <ItemGroup>
-    <FilesToSign Include="$(TargetPath)" />
+    <FilesToSign Include="$(TargetPath)">
+      <Authenticode>Microsoft</Authenticode>
+      <StrongName>StrongName</StrongName>
+    </FilesToSign>
   </ItemGroup>
 
   <ItemDefinitionGroup>
