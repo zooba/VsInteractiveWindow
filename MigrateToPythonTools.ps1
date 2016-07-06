@@ -24,6 +24,10 @@ foreach ($s in $ct.Symbols.GuidSymbol) {
         $s.value = "{F27554FA-3DF4-4649-A81C-1B97C932E78B}";
     }
 }
+foreach ($s in $ct.Commands.Buttons.Button.Strings) {
+    $s.CanonicalName = $s.CanonicalName -replace '\.InteractiveConsole\.(\w+)', '.PythonInteractiveConsole.$1'
+    $s.LocCanonicalName = $s.LocCanonicalName -replace '\.InteractiveConsole\.(\w+)', '.PythonInteractiveConsole.$1'
+}
 
 $vsct.Save("$root\VisualStudio\InteractiveWindow.vsct");
 
@@ -128,6 +132,9 @@ namespace Microsoft.PythonTools' } |
     %{ $_ -replace '(\w+) = "(Interactive .+)";', '$1 = "Python $2";' }
 ), $enc);
 [System.IO.File]::WriteAllLines("$root\Editor\Output\OutputClassifierProvider.cs", ((gc "$root\Editor\Output\OutputClassifierProvider.cs") |
+    %{ $_ -replace 'Name = "(Interactive .+)";', 'Name = "Python $1";' }
+), $enc);
+[System.IO.File]::WriteAllLines("$root\Editor\Commands\PredefinedInteractiveCommandsContentTypes.cs", ((gc "$root\Editor\Commands\PredefinedInteractiveCommandsContentTypes.cs") |
     %{ $_ -replace 'Name = "(Interactive .+)";', 'Name = "Python $1";' }
 ), $enc);
 
