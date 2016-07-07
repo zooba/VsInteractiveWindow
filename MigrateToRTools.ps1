@@ -146,4 +146,7 @@ if (-not (Test-Path "$root\packages\Microsoft.VSSDK.BuildTools*\build\Microsoft.
     del "$root\nuget.exe"
 }
 
+"Create EditorAssemblyInfo.cs file"
+copy "$root\EditorAssemblyInfo.Python.cs" "$root\EditorAssemblyInfo.cs" -Force
+
 "Finished! Ready to build"
