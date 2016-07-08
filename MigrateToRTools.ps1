@@ -21,7 +21,7 @@ foreach ($s in $ct.Symbols.GuidSymbol) {
     } elseif ($s.name -eq "guidInteractiveWindow") {
         $s.value =  "{E3C7B480-1DE8-41C8-AF17-16F696C78503}";
     } elseif ($s.name -eq "guidInteractiveWindowCmdSet") {
-        $s.value = "{00B8868B-F9F5-4970-A048-410B05508506}";
+        $s.value = "{5682C825-8362-4536-98EE-4E23F289B41E}";
     }
 }
 foreach ($s in $ct.Commands.Buttons.Button.Strings) {
@@ -43,7 +43,7 @@ $vsix.Save("$root\VisualStudio\source.extension.vsixmanifest")
     ((gc $root\VisualStudio\Guids.cs) |
         %{ $_ -replace 'InteractiveToolWindowIdString = "[\w\-]+"', 'InteractiveToolWindowIdString = "E3C7B480-1DE8-41C8-AF17-16F696C78503"' } |
         %{ $_ -replace 'InteractiveWindowPackageIdString = "[\w\-]+"', 'InteractiveWindowPackageIdString = "7452F388-1BE9-4C43-877B-B4995F5E6A8E"' } |
-        %{ $_ -replace 'InteractiveCommandSetIdString = "[\w\-]+"', 'InteractiveCommandSetIdString = "00B8868B-F9F5-4970-A048-410B05508506"' }),
+        %{ $_ -replace 'InteractiveCommandSetIdString = "[\w\-]+"', 'InteractiveCommandSetIdString = "5682C825-8362-4536-98EE-4E23F289B41E"' }),
     $enc
 )
 
