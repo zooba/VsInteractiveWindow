@@ -34,7 +34,6 @@
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop.10.0" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
-    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
   </ItemGroup>
   <Choose>
     <When Condition="$(VisualStudioVersion) == '15.0'">
