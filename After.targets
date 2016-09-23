@@ -94,10 +94,10 @@ using System.Runtime.InteropServices%3b
   <Import Project="$(MSBuildThisFileDirectory)\packages\*\build\*.targets" />
 
   <!-- Import the VS SDK headers -->
-  <ImportGroup Condition="Exists('$(DevEnvDir)..\..\VSSDK')">
+  <ImportGroup Condition="Exists('$(DevEnvDir)..\..\VSSDK') and $(ImportVSSDKTargets) == 'true'">
     <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\VSSDK\Microsoft.VsSDK.targets" />
   </ImportGroup>
-  <ImportGroup Condition="!Exists('$(DevEnvDir)..\..\VSSDK')">
+  <ImportGroup Condition="!Exists('$(DevEnvDir)..\..\VSSDK') and $(ImportVSSDKTargets) == 'true'">
     <Import Project="$(VSSDKInstall)\Microsoft.VsSDK.targets" />
   </ImportGroup>
 </Project>
