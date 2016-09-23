@@ -9,6 +9,7 @@
     <DevEnvDir Condition="!Exists($(DevEnvDir))">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\Software\Microsoft\VisualStudio\$(VisualStudioVersion)', 'InstallDir', null, RegistryView.Registry32))\</DevEnvDir>
     <CreateVsixContainer>false</CreateVsixContainer>
     <DebugSymbols>true</DebugSymbols>
+    <DeployExtension>false</DeployExtension>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

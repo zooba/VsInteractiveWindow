@@ -1,4 +1,4 @@
-param([switch] $skiptools)
+param([switch] $skipvssdk)
 
 $root = $MyInvocation.MyCommand.Definition | Split-Path -Parent;
 $enc = New-Object System.Text.UTF8Encoding($True);
@@ -140,14 +140,14 @@ namespace Microsoft.PythonTools' } |
     %{ $_ -replace 'Name = "(Interactive .+)";', 'Name = "Python $1";' }
 ), $enc);
 
-if (-not $skiptools) {
-    "Download tools (if needed)"
-    if (-not (Test-Path "$root\packages\Microsoft.VSSDK.BuildTools*\build\Microsoft.VSSDK.BuildTools.props")) {
-        Invoke-WebRequest https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile "$root\nuget.exe"
+"Download tools (if needed)"
+if (-not (Test-Path "$root\packages\MicroBuild.Core*\build\MicroBuild.Core.props")) {
+    Invoke-WebRequest https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile "$root\nuget.exe"
+    if (-not $skipvssdk) {
         & "$root\nuget.exe" install Microsoft.VSSDK.BuildTools -OutputDirectory "$root\packages"
-        & "$root\nuget.exe" install MicroBuild.Core -OutputDirectory "$root\packages"
-        del "$root\nuget.exe"
     }
+    & "$root\nuget.exe" install MicroBuild.Core -OutputDirectory "$root\packages"
+    del "$root\nuget.exe"
 }
 
 "Create EditorAssemblyInfo.cs file"
